@@ -16,23 +16,26 @@ target              = ""
 port                = 0
 
 def show_usage():
-  print "BHP Net Tool"
-  print "Usage: bhpnet.py -t target_host " +
-        "-p port"
-  print "-l --listen  listen on [host]:port]\n"+
-        "             for incoming connections"
-  print "-e --execute=file_to_run\n"+
+  print("BHP Net Tool")
+  print("Usage: bhpnet.py -t target_host " +
+        "-p port\n")
+  print("-l --listen\n"+
+        "             listen on [host]:[port]\n"+
+        "             for incoming connections")
+  print("-e --execute=file_to_run\n"+
         "             execute the given file\n"+
         "             upon receiving a connection"
-  print "-c --command initialize a command shell"
-  print "-u --upload=destination\n"+
+       )
+  print("-c --command\n"+
+        "             initialize a command shell")
+  print("-u --upload=destination\n"+
         "             upon receiving connection"+
         "\n             upload a file and write"+
-        "\n             to [desination]\n"
-  print "Examples:"
-  print "bhpnet.py -t 192.168.0.1 -p 5555 -l -c"
-  print "bhpnet.py -t 192.168.0.1 -p 5555 -l "+
-        "-u=c:\\target.exe"
+        "\n             to [desination]\n")
+  print("Examples:")
+  print("bhpnet.py -t 192.168.0.1 -p 5555 -l -c")
+  print("bhpnet.py -t 192.168.0.1 -p 5555 -l "+
+        "-u=c:\\target.exe")
   print "echo | bhpnet.py -t 192.168.11.12 -p 135"
   sys.exit(0)
   
@@ -50,7 +53,7 @@ def main():
   # Read the commandline options
   try:
     opts, args = getopt.getopt(sys.argv[1:],
-                 "hle:t:p:cu",
+                 "hle:t:p:cu:",
                  ["help","listen","execute",
                   "target","port","command",
                   "upload"])
@@ -119,7 +122,7 @@ def client_sender(buffer):
         if recv_len < 4096:
           break
       
-      print response,
+      print response
       
       # Wait for more input
       buffer = raw_input("")
