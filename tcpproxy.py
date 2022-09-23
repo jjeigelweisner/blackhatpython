@@ -109,7 +109,57 @@ def proxy_handler(client_socket,remote_host,
      print("[*] No more data. Closing "+
            "connections.")
      break
+
+
+# Taken from BLACK HAT PYTHON 1E
+def hexdump(src,length=16):
+  result = []
+  digits = 4 if isinstance(src, unicode) else 2
+  
+  for i in xrange(0, len(src), length):
+    s = src[i:i+length]
+    hexa = b' '.join(["%0*X" % (digits,
+           ord(x)) for x in s])
+    text = b' '.join([x if 0x20 <= ord(x) <
+           0x7F else b'.' for x in s])
+    result.append(b"%04X  %-*s  %s" %
+           (i, length*(digits + 1), hexa, text))  
+
+def receive_from(connection):
+  buffer = ""
+  
+  # We set a 2 second timeout; depending on
+  # your target, this may need to be adjusted
+  connection.settimeout(2)
+  
+  try:
+    # Keep reading into the buffer until
+    # there's no more data
+    # or we time out
+    while True:
+      data = connection.recv(4096)
+      
+      if not data:
+        break
+      
+      buffer += data
+  except:
+    pass
     
+  return buffer
+  
+# Modify any requests destined for
+# the remote host
+def request_handler(buffer):
+  # (Perform packet modification)
+  return buffer
+
+# Modify any responses destined for
+# the local host
+def response_handler(buffer):
+  # (Perform packet modification)
+  return buffer
+
 def main():
   # No fancy command-line parsing here
   if len(sys.argv[1:]) != 5:
