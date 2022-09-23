@@ -100,16 +100,15 @@ def proxy_handler(client_socket,remote_host,
       
       print("[<==] Sent to localhost.")
    
-   # If no more data on either side,
-   # close the connection
-   if not len(local_buffer) or
-      not len(remote_buffer):
-     client_socket.close()
-     remote_socket.close()
-     print("[*] No more data. Closing "+
-           "connections.")
-     break
-
+    # If no more data on either side,
+    # close the connection
+    if not len(local_buffer) or \
+       not len(remote_buffer):
+      client_socket.close()
+      remote_socket.close()
+      print("[*] No more data. Closing "+
+            "connections.")
+      break
 
 # Taken from BLACK HAT PYTHON 1E
 def hexdump(src,length=16):
@@ -165,7 +164,7 @@ def main():
   if len(sys.argv[1:]) != 5:
     print("Usage: ./proxy.py [localhost] " +
           "[localport] [remotehost] " +
-          "[remoteport] [receive_first]")
+          "[remoteport] [recv_first]")
     print("Example: ./proxy.py 127.0.0.1 " +
           "9000 10.12.132.1 9000 True")
     sys.exit(0)
