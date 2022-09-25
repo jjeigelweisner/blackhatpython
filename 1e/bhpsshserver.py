@@ -15,11 +15,11 @@ class Server (paramiko.ServerInterface):
   def check_channel_request(self,kind,chanid):
     if kind == 'session':
       return paramiko.OPEN_SUCCEEDED
-    return paramiko.
-           OPEN_FAILED_ADMINISTRATIVELY_PROHIBITED
+    return \
+  paramiko.OPEN_FAILED_ADMINISTRATIVELY_PROHIBITED
   def check_auth_password(self,username,password):
-    if (username == 'mike') and
-       (password == 'lovespython'):
+    if (username == 'mike') and (
+        password == 'lovespython'):
       return paramiko.AUTH_SUCCESSFUL
     return paramiko.AUTH_FAILED
     
@@ -35,7 +35,7 @@ try:
   sock.listen(100)
   print '[+] Listening for connection ...'
   client, addr = sock.accept()
-except Exception e:
+except Exception,e:
   print '[-] Listen failed: ' + str(e)
   sys.exit(1)
   
@@ -47,7 +47,7 @@ try:
   server = Server()
   try:
     bhSession.start_server(server=server)
-  except paramiko.SSHException x:
+  except paramiko.SSHException,x:
     print '[-] SSH negotiation failed.'
   chan = bhSession.accept(20)
   print '[+] Authenticated!'
@@ -55,8 +55,8 @@ try:
   chan.send('Welcome to bh_ssh')
   while True:
     try:
-      command = raw_input("Enter command: ").
-                strip('\n')
+      command = raw_input("Enter command: "
+                ).strip('\n')
       if command != 'exit':
         chan.send(command)
         print chan.recv(1024) + '\n'
@@ -67,7 +67,7 @@ try:
         raise Exception('exit')
     except KeyboardInterrupt:
       bhSession.close()
-except Exception e:
+except Exception,e:
   print '[-] Caught exception: ' + str(e)
   try:
     bhSession.close()

@@ -11,7 +11,7 @@ def ssh_command(ip, user, passwd, command):
       paramiko.AutoAddPolicy())
   client.connect(
       ip, username=user, password=passwd)
-  ssh_session = 
+  ssh_session =  \
       client.get_transport().open_session()
   
   if ssh_session.active:
@@ -24,7 +24,7 @@ def ssh_command(ip, user, passwd, command):
         cmd_output = subprocess.check_output(
                      command, shell=True)
         ssh_session.send(cmd_output)
-      except Exception e:
+      except Exception,e:
         ssh_session.send(str(e))
     client.close()
   
