@@ -24,7 +24,7 @@ class NetCat:
     self.args = args
     self.buffer = buffer
     self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    self.socket.setsockopt(socket.SOL_SOCKET, socket.SO__REUSEADDR, 1)
+    self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
   def run(self):
     if self.args.listen:
@@ -84,10 +84,10 @@ class NetCat:
       message = f'Saved file {self.args.upload}'
       client_socket.send(message.encode())
     elif self.args.command:
-      cmd_buffer = 'b'
+      cmd_buffer = b''
       while True:
         try:
-          client_socket.send(b'BHP: #> ')
+          client_socket.send(b'BHP: #>')
           while '\n' not in cmd_buffer.decode():
             cmd_buffer += client_socket.recv(64)
           response = execute(cmd_buffer.decode())
@@ -125,7 +125,7 @@ if __name__ == '__main__':
 
   if args.listen:
     buffer = ''
-  else
+  else:
     buffer = sys.stdin.read()
 
   nc = NetCat(args, buffer.encode())
